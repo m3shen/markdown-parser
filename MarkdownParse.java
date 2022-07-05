@@ -76,7 +76,12 @@ public class MarkdownParse {
                 currentIndex = closeParen + 1;
                 continue;
             }
-            
+
+            if(nextOpenBracket > 0 && markdown.charAt(nextOpenBracket - 1) == '!') {
+                currentIndex = nextCloseBracket + 1;
+                continue;
+            }
+
             String potentialLink = markdown.substring(openParen + 1, closeParen).trim();
             
             if(potentialLink.indexOf(" ") == -1 && potentialLink.indexOf("\n") == -1) {

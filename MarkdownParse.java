@@ -66,12 +66,19 @@ public class MarkdownParse {
 
             // The close paren we need may not be the next one in the file
             int closeParen = findCloseParen(markdown, openParen);
-            
+
             if(nextOpenBracket == -1 || nextCloseBracket == -1
                   || closeParen == -1 || openParen == -1) {
                 return toReturn;
             }
+
+            if(openParen != nextCloseBracket + 1) {
+                currentIndex = closeParen + 1;
+                continue;
+            }
+            
             String potentialLink = markdown.substring(openParen + 1, closeParen).trim();
+            
             if(potentialLink.indexOf(" ") == -1 && potentialLink.indexOf("\n") == -1) {
                 toReturn.add(potentialLink);
                 currentIndex = closeParen + 1;
